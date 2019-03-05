@@ -5,9 +5,9 @@ MAINPATH=$HOME/.wiki
 query()
 {
 	case $2 in
-		p) python3 $MAINDIR/main.py $1 | "$PAGER";;
-		a) python3 $MAINDIR/main.py $1 ;;
-		*) python3 $MAINDIR/main.py $1 | head -n 1 ;;
+		p) python3 $MAINPATH/main.py $1 | "$PAGER";;
+		a) python3 $MAINPATH/main.py $1 ;;
+		*) python3 $MAINPATH/main.py $1 | head -n 1 ;;
 	esac
 }
 
