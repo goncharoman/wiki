@@ -5,7 +5,14 @@ MAINDIR=$HOME/.wiki
 init()
 {
 	git clone https://github.com/goncharoman/wiki.git $MAINDIR
-	sudo -c "ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki"
+	os=$(uname -s)
+	if [[ "$os" == "Linux" ]]
+	then
+		su -c "ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki"
+	elif [[ "$os" == "Darwin" ]]
+	then
+		sudo "ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki"
+	fi
 }
 
 query()
