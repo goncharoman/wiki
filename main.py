@@ -1,10 +1,11 @@
-import requests
+import requests, os
 import urllib.parse as up
 from sys import argv
 import configparser
 
+
 config = configparser.ConfigParser()
-config.read("config")
+config.read(os.path.join(os.getcwd(), "config"))
 locale = config["default"]["locale"]
 
 def main(users_query, *options):
