@@ -2,15 +2,6 @@
 
 MAINDIR=$HOME/.wiki
 
-check_dir()
-{
-	if [[ ! -d $MAINDIR ]]
-	then
-		return 0
-	fi
-	return 1
-}
-
 init()
 {
 	git clone https://github.com/goncharoman/wiki.git $MAINDIR
@@ -18,38 +9,43 @@ init()
 
 query()
 {
-	python $MAINDIR/main.py $1
+	case $2 in
+		p) python3 $MAINDIR/main.py $1 | "$PAGER";;
+		a) python3 $MAINDIR/main.py $1 ;;
+		*) python3 $MAINDIR/main.py $1 | head -n 1 ;;
+	esac
 }
 
+error_fora()
+{
+	echo "illegal options"
+	exit
+}
 
-if [[ check_dir -eq 0 ]]
+if [[ ! -e "$MAINDIR" ]]
 then
 	init
 fi
 
-while [[ "$1" =~ ^- ]]
-do
+option=''
+
+if [[ "$1" =~ ^- ]]
+then
 	case $1 in
 		-f)
-			shift
-			query $1 1
+			if [[ -z $FORA ]]; then option='f'; else error_fora;fi
 			;;
 		-a)
-			shift
-			query $2 -1
+			if [[ -z $FORA ]]; then option='a'; else error_fora;fi
 			;;
-		-n)
-			shift
-			arg=$1; shift
-			query $1 $arg
-
 		-p)
-			shift
-			pager $1
+			if [[ -z $FORA ]]; then option='p'; else error_fora;fi
 			;;
 		*)
 			echo "usage $0"
 			;;
 	esac
-	shift
-done
+shift
+fi
+
+query $1 $option
