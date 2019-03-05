@@ -11,10 +11,24 @@ display_usage()
 	echo -e "\tp - show all ans in defaul pager"
 }
 
+out_pager()
+{
+	if [[ -z $PAGER ]]
+	then
+		if [ less ];then PAGER=less;
+		elif [ more ];then PAGER=more;
+		else
+			echo "Defaul pager not found. Use flag -a for show all ans."
+		fi
+	fi
+
+	python3 $MAINPATH/main.py $1 | "$PAGER"
+}
+
 query()
 {
 	case $2 in
-		p) python3 $MAINPATH/main.py $1 | "$PAGER";;
+		p) out_pager $1;;
 		a) python3 $MAINPATH/main.py $1 ;;
 		*) python3 $MAINPATH/main.py $1 | head -n 1 ;;
 	esac
