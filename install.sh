@@ -6,6 +6,7 @@ MAINPATH=$HOME/.wiki
 
 init()
 {
+	if [[ -e $MAINPATH ]]; then rm -rf $MAINPATH; fi
 	git clone https://github.com/goncharoman/wiki.git $MAINPATH
 
 	if [[ "$os" == "Linux" ]]
