@@ -2,6 +2,15 @@
 
 MAINPATH=$HOME/.wiki
 
+display_usage()
+{
+	echo "usage $0 [-optinon] query"
+	echo -e "options:"
+	echo -e "\ta - show all ans"
+	echo -e "\tf - show first ans"
+	echo -e "\tp - show all ans in defaul pager"
+}
+
 query()
 {
 	case $2 in
@@ -11,31 +20,39 @@ query()
 	esac
 }
 
-error_fora()
+error_flag()
 {
-	echo "illegal options"
+	echo "illegal option(s)"
 	exit
 }
 
-option=''
+flag=""
 
 if [[ "$1" =~ ^- ]]
 then
 	case $1 in
 		-f)
-			if [[ -z $FORA ]]; then option='f'; else error_fora;fi
+			if [ -z "$flag" ]; then flag='f'; else error_flag;display_usage;fi
 			;;
 		-a)
-			if [[ -z $FORA ]]; then option='a'; else error_fora;fi
+			if [ -z "$flag" ]; then flag='a'; else error_flag;display_usage;fi
 			;;
 		-p)
-			if [[ -z $FORA ]]; then option='p'; else error_fora;fi
+			if [ -z "$flag" ]; then flag='p'; else error_flag;display_usage;fi
 			;;
 		*)
-			echo "usage $0"
+			error_flag
+			display_usage
 			;;
 	esac
 shift
 fi
 
-query $1 $option
+if [ "$#" -ne "1" ]
+then
+	echo "many args"
+	display_usage
+	exit
+fi
+
+query $1 $flag
