@@ -9,10 +9,10 @@ init()
 	if [[ -e $MAINPATH ]]; then rm -rf $MAINPATH; fi
 	git clone https://github.com/goncharoman/wiki.git $MAINPATH
 
-	if [[ "$os" == "Linux" ]]
+	if [[ "$OS" == "Linux" ]]
 	then
 		su -c "ln -s $MAINPATH/wiki.sh /usr/local/bin/wiki"
-	elif [[ "$os" == "Darwin" ]]
+	elif [[ "$OS" == "Darwin" ]]
 	then
 		sudo "ln -s $MAINPATH/wiki.sh /usr/local/bin/wiki"
 	fi
