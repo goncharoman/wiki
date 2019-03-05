@@ -1,5 +1,7 @@
 #!/bin/bash
 
+MAINPATH=$HOME/.wiki
+
 query()
 {
 	case $2 in

@@ -5,7 +5,7 @@ import configparser
 
 
 config = configparser.ConfigParser()
-config.read(os.path.join(os.environ["HOME"], "config"))
+config.read(os.path.join(os.environ["HOME"], ".wiki", "config"))
 locale = config["default"]["locale"]
 
 def main(users_query, *options):
