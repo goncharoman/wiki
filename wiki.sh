@@ -1,20 +1,5 @@
 #!/bin/bash
 
-MAINDIR=$HOME/.wiki
-
-init()
-{
-	git clone https://github.com/goncharoman/wiki.git $MAINDIR
-	os=$(uname -s)
-	if [[ "$os" == "Linux" ]]
-	then
-		su -c "ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki"
-	elif [[ "$os" == "Darwin" ]]
-	then
-		sudo "ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki"
-	fi
-}
-
 query()
 {
 	case $2 in
@@ -29,11 +14,6 @@ error_fora()
 	echo "illegal options"
 	exit
 }
-
-if [[ ! -e "$MAINDIR" ]]
-then
-	init
-fi
 
 option=''
 
