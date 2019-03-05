@@ -5,6 +5,7 @@ MAINDIR=$HOME/.wiki
 init()
 {
 	git clone https://github.com/goncharoman/wiki.git $MAINDIR
+	ln -s $MAINDIR/wiki.sh /usr/local/bin/wiki
 }
 
 query()
