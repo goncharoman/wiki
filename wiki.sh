@@ -22,15 +22,15 @@ out_pager()
 		fi
 	fi
 
-	python3 $MAINPATH/main.py $1 | "$PAGER"
+	python3 $MAINPATH/main.py "$1" | "$PAGER"
 }
 
 query()
 {
 	case $2 in
-		p) out_pager $1;;
-		a) python3 $MAINPATH/main.py $1 ;;
-		*) python3 $MAINPATH/main.py $1 | head -n 1 ;;
+		p) out_pager "$1";;
+		a) python3 $MAINPATH/main.py "$1" ;;
+		*) python3 $MAINPATH/main.py "$1" | head -n 1 ;;
 	esac
 }
 
@@ -69,4 +69,4 @@ then
 	exit
 fi
 
-query $1 $flag
+query "$1" "$flag"
